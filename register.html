@@ -34,5 +34,38 @@
             </div>
         </section>
     </main>
+    <script src="app.js"></script>
+<script>
+    document.getElementById('form-register').onsubmit = async function(e) {
+        e.preventDefault();
+        const errEl = document.getElementById('reg-error');
+        const btn = this.querySelector('button');
+
+        const data = {
+            fio: document.getElementById('reg-fio').value.trim(),
+            phone: document.getElementById('reg-phone').value.trim(),
+            email: document.getElementById('reg-email').value.trim(),
+            login: document.getElementById('reg-login').value.trim(),
+            password: document.getElementById('reg-pass').value.trim()
+        };
+
+        if (!data.fio || !data.phone || !data.email || !data.login || !data.password) {
+            errEl.textContent = 'Все поля обязательны';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Регистрация...';
+
+        try {
+            await API.register(data);
+            window.location.href = '/orders';
+        } catch (err) {
+            errEl.textContent = err.message;
+            btn.disabled = false;
+            btn.textContent = 'Зарегистрироваться';
+        }
+    };
+</script>
 </body>
 </html>
