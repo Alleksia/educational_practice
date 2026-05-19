@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация — Мой Не Сам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧹 Мой Не Сам</h1>
+        <nav>
+            <a href="login.html">Вход</a>
+            <a href="register.html" class="active">Регистрация</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="card">
+                <h2>Регистрация нового пользователя</h2>
+                <form id="form-register">
+                    <div class="form-group"><label for="reg-fio">ФИО *</label><input id="reg-fio" required></div>
+                    <div class="row">
+                        <div class="form-group"><label for="reg-phone">Телефон *</label><input id="reg-phone" type="tel" required></div>
+                        <div class="form-group"><label for="reg-email">Email *</label><input id="reg-email" type="email" required></div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group"><label for="reg-login">Логин *</label><input id="reg-login" required></div>
+                        <div class="form-group"><label for="reg-pass">Пароль *</label><input id="reg-pass" type="password" required></div>
+                    </div>
+                    <button type="submit" class="primary">Зарегистрироваться</button>
+                    <p class="error-msg" id="reg-error"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
