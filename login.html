@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — Мой Не Сам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧹 Мой Не Сам</h1>
+        <nav>
+            <a href="\">Главная</a>
+            <a href="login.html" class="active">Вход</a>
+            <a href="register.html">Регистрация</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="card">
+                <h2>Вход в систему</h2>
+                <form id="form-login">
+                    <div class="form-group"><label for="login-login">Логин</label><input id="login-login" required></div>
+                    <div class="form-group"><label for="login-pass">Пароль</label><input id="login-pass" type="password" required></div>
+                    <button type="submit" class="primary">Войти</button>
+                    <p class="error-msg" id="login-error"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
+    <script src="JS/app.js"></script>
+<script>
+    (async () => {
+        try {
+            const user = await API.getMe();
+            if (user) {
+                window.location.href = user.role === 'admin' ? '/admin' : '/orders';
+                return;
+            }
+        } catch (e) {}
+
+        document.getElementById('form-login').onsubmit = async function(e) {
+            e.preventDefault();
+            const errEl = document.getElementById('login-error');
+            const btn = this.querySelector('button');
+
+            const login = document.getElementById('login-login').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+
+            if (!login || !pass) {
+                errEl.textContent = 'Заполните все поля';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Вход...';
+
+            try {
+                const user = await API.login(login, pass);
+                window.location.href = user.role === 'admin' ? '/admin' : '/orders';
+            } catch (err) {
+                errEl.textContent = err.message;
+                btn.disabled = false;
+                btn.textContent = 'Войти';
+            }
+        };
+    })();
+</script>
+</body>
+</html>
