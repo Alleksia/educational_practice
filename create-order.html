@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заявки — Мой Не Сам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧹 Мой Не Сам</h1>
+        <nav>
+            <span class="user-info" id="user-greeting"></span>
+            <a href="#" id="btn-logout">Выйти</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="card">
+                <h2>📋 Мои заявки</h2>
+                <div id="user-orders-table"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="card">
+                <h2>➕ Новая заявка</h2>
+                <form id="form-order">
+                    <div class="form-group"><label for="ord-address">Адрес *</label><input id="ord-address" required></div>
+                    <div class="form-group"><label for="ord-contact">Контактные данные *</label><input id="ord-contact" required></div>
+                    <div class="row">
+                        <div class="form-group"><label for="ord-date">Желаемая дата *</label><input type="date" id="ord-date" required></div>
+                        <div class="form-group"><label for="ord-time">Желаемое время *</label><input type="time" id="ord-time" required></div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="ord-service">Вид услуги *</label>
+                            <select id="ord-service" required>
+                                <option value="">— выберите —</option>
+                                <option value="Общий клининг">Общий клининг</option>
+                                <option value="Генеральная уборка">Генеральная уборка</option>
+                                <option value="Послестроительная уборка">Послестроительная уборка</option>
+                                <option value="Химчистка ковров и мебели">Химчистка ковров и мебели</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ord-payment">Тип оплаты *</label>
+                            <select id="ord-payment" required>
+                                <option value="">— выберите —</option>
+                                <option value="Наличные">Наличные</option>
+                                <option value="Банковская карта">Банковская карта</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="primary">Отправить заявку</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
+
+<script>
+    (async () => {
+        let user;
+        try { user = await API.getMe(); } catch (e) { window.location.href = '/'; return; }
+
+        if (user.role === 'admin') { window.location.href = '/admin'; return; }
+
+        document.getElementById('user-greeting').textContent = `👤 ${user.fio}`;
+        document.getElementById('btn-logout').onclick = async (e) => {
+            e.preventDefault();
+            await API.logout();
+            window.location.href = '/';
+        };
+
+        function statusBadge(status) {
+            if (status === 'done') return '<span class="badge badge-done">Услуга оказана</span>';
+            if (status === 'cancelled') return '<span class="badge badge-cancelled">Отменена</span>';
+            return '<span class="badge badge-new">Новая заявка</span>';
+        }
+
+        async function loadOrders() {
+            try {
+                const orders = await API.getMyOrders();
+                const c = document.getElementById('user-orders-table');
+                if (!orders.length) { c.innerHTML = '<p style="color:#5a8a9a;">У вас пока нет заявок.</p>'; return; }
+                c.innerHTML = `<table><thead><tr><th>ID</th><th>Адрес</th><th>Услуга</th><th>Дата</th><th>Время</th><th>Оплата</th><th>Статус</th></tr></thead>
+                    <tbody>${orders.map(o => `<tr><td>${o.id}</td><td>${o.address}</td><td>${o.service}</td><td>${o.date}</td><td>${o.time}</td><td>${o.payment}</td><td>${statusBadge(o.status)}${o.cancel_reason ? '<br><small>'+o.cancel_reason+'</small>' : ''}</td></tr>`).join('')}</tbody></table>`;
+            } catch (e) { console.error(e); }
+        }
+
+        loadOrders();
+
+        document.getElementById('form-order').onsubmit = async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const order = {
+                address: document.getElementById('ord-address').value.trim(),
+                contact: document.getElementById('ord-contact').value.trim(),
+                date: document.getElementById('ord-date').value,
+                time: document.getElementById('ord-time').value,
+                service: document.getElementById('ord-service').value,
+                payment: document.getElementById('ord-payment').value
+            };
+            btn.disabled = true; btn.textContent = 'Отправка...';
+            try { await API.createOrder(order); this.reset(); await loadOrders(); }
+            catch (err) { alert(err.message); }
+            finally { btn.disabled = false; btn.textContent = 'Отправить заявку'; }
+        };
+    })();
+</script>
+</body>
+</html>
