@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора — Мой Не Сам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧹 Мой Не Сам</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <span class="user-info" id="user-greeting"></span>
+            <a href="#" id="btn-logout">Выйти</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="card">
+                <h2>🔧 Все заявки</h2>
+                <div id="admin-orders-table"></div>
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
+<script>
+    (async () => {
+        let user;
+        try { user = await API.getMe(); } catch (e) { window.location.href = '/'; return; }
+
+        if (user.role !== 'admin') { window.location.href = '/orders'; return; }
+
+        document.getElementById('user-greeting').textContent = `👤 ${user.fio} (админ)`;
+        document.getElementById('btn-logout').onclick = async (e) => {
+            e.preventDefault();
+            await API.logout();
+            window.location.href = '/';
+        };
+
+        function statusBadge(s) {
+            if (s === 'done') return '<span class="badge badge-done">Оказана</span>';
+            if (s === 'cancelled') return '<span class="badge badge-cancelled">Отменена</span>';
+            return '<span class="badge badge-new">Новая</span>';
+        }
+
+        async function loadOrders() {
+            const orders = await API.getAllOrders();
+            const c = document.getElementById('admin-orders-table');
+            if (!orders.length) { c.innerHTML = '<p style="color:#5a8a9a;">Заявок пока нет.</p>'; return; }
+            c.innerHTML = `<table><thead><tr><th>ID</th><th>ФИО</th><th>Контакты</th><th>Услуга</th><th>Дата</th><th>Статус</th><th>Действие</th></tr></thead>
+                <tbody>${orders.map(o => `<tr><td>${o.id}</td><td>${o.user_fio}</td><td>${o.contact}</td><td>${o.service}</td><td>${o.date} ${o.time}</td><td>${statusBadge(o.status)}</td>
+                <td class="admin-actions" data-id="${o.id}">
+                    ${o.status === 'new' ? '<button class="done-btn primary">✅ Выполнено</button> <button class="cancel-btn danger">❌ Отменить</button>' : ''}
+                    ${o.status === 'cancelled' ? '<small>Причина: '+(o.cancel_reason||'—')+'</small>' : ''}
+                    ${o.status === 'done' ? '<small>Завершена</small>' : ''}
+                </td></tr>`).join('')}</tbody></table>`;
+
+            c.querySelectorAll('.done-btn').forEach(b => b.onclick = async function() {
+                const id = +this.closest('.admin-actions').dataset.id;
+                this.disabled = true;
+                try { await API.updateOrderStatus(id, 'done'); await loadOrders(); }
+                catch (err) { alert(err.message); this.disabled = false; }
+            });
+
+            c.querySelectorAll('.cancel-btn').forEach(b => b.onclick = async function() {
+                const id = +this.closest('.admin-actions').dataset.id;
+                const reason = prompt('Причина отклонения:');
+                if (reason && reason.trim()) {
+                    this.disabled = true;
+                    try { await API.updateOrderStatus(id, 'cancelled', reason.trim()); await loadOrders(); }
+                    catch (err) { alert(err.message); this.disabled = false; }
+                }
+            });
+        }
+
+        loadOrders();
+    })();
+</script>
+</body>
+</html>
