@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Новая заявка — Мой Не Сам</title>
+    <link rel="stylesheet" href="mobile-style.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <span class="status-icons">📶 🔋</span>
+        </div>
+
+        <div class="app-header">
+            <a href="mobile-create-order.html" class="header-back">← Назад</a>
+            <h1>Новая заявка</h1>
+            <span></span>
+        </div>
+
+        <div class="phone-content">
+            <div class="card">
+                <h2>📝 Данные заявки</h2>
+                <form id="order-form">
+                    <div class="form-group">
+                        <label>Адрес *</label>
+                        <input type="text" placeholder="ул. Ленина, д.10, кв.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Контактные данные *</label>
+                        <input type="text" placeholder="Телефон или email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Желаемая дата *</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Желаемое время *</label>
+                        <input type="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Вид услуги *</label>
+                        <select required>
+                            <option value="">— выберите —</option>
+                            <option>Общий клининг</option>
+                            <option>Генеральная уборка</option>
+                            <option>Послестроительная уборка</option>
+                            <option>Химчистка ковров и мебели</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Тип оплаты *</label>
+                        <select required>
+                            <option value="">— выберите —</option>
+                            <option>Наличные</option>
+                            <option>Банковская карта</option>
+                        </select>
+                    </div>
+                    <p class="error-msg" style="display:none;">Все поля обязательны для заполнения</p>
+                    <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="mobile-create-order.html" class="nav-item">
+                <span class="icon">📋</span>
+                <span>Заявки</span>
+            </a>
+            <a href="mobile-form-order.html" class="nav-item active">
+                <span class="icon">➕</span>
+                <span>Новая</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
