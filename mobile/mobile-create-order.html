@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Мои заявки — Мой Не Сам</title>
+    <link rel="stylesheet" href="mobile-style.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <span class="status-icons">📶 🔋</span>
+        </div>
+
+        <div class="app-header">
+            <a href="mobile-login.html" class="header-back">← Выход</a>
+            <h1>Мои заявки</h1>
+            <div class="header-avatar">👤</div>
+        </div>
+
+        <div class="phone-content">
+            <p style="font-size:0.78rem; color:#5a8a9a; margin-bottom:12px;">👤 Иванов Иван</p>
+
+            <div class="chips-row">
+                <span class="chip selected">Все</span>
+                <span class="chip">Новые</span>
+                <span class="chip">Выполненные</span>
+            </div>
+
+            <div class="order-list">
+                <div class="order-item">
+                    <div class="order-item-header">
+                        <span class="order-item-id">Заявка №1042</span>
+                        <span class="badge badge-done">Выполнено</span>
+                    </div>
+                    <div class="order-item-body">
+                        <strong>Услуга:</strong> Общий клининг<br>
+                        <strong>Адрес:</strong> ул. Морская, д.15, кв.42<br>
+                        <strong>Дата:</strong> 15.05.2024 | 10:00
+                    </div>
+                </div>
+
+                <div class="order-item">
+                    <div class="order-item-header">
+                        <span class="order-item-id">Заявка №1056</span>
+                        <span class="badge badge-new">Новая</span>
+                    </div>
+                    <div class="order-item-body">
+                        <strong>Услуга:</strong> Химчистка мебели<br>
+                        <strong>Адрес:</strong> пр. Ленина, д.8, оф.301<br>
+                        <strong>Дата:</strong> 22.05.2024 | 14:30
+                    </div>
+                    <div class="order-item-footer">
+                        <span style="color:#5a8a9a; font-size:0.72rem;">Ожидает подтверждения</span>
+                    </div>
+                </div>
+
+                <div class="order-item">
+                    <div class="order-item-header">
+                        <span class="order-item-id">Заявка №1038</span>
+                        <span class="badge badge-cancelled">Отменена</span>
+                    </div>
+                    <div class="order-item-body">
+                        <strong>Услуга:</strong> Генеральная уборка<br>
+                        <strong>Адрес:</strong> ул. Садовая, д.3<br>
+                        <strong>Причина:</strong> Нет свободных бригад
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="mobile-create-order.html" class="nav-item active">
+                <span class="icon">📋</span>
+                <span>Заявки</span>
+            </a>
+            <a href="mobile-form-order.html" class="nav-item">
+                <span class="icon">➕</span>
+                <span>Новая</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
