@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Панель администратора — Мой Не Сам</title>
+    <link rel="stylesheet" href="mobile-style.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <span class="status-icons">📶 🔋</span>
+        </div>
+
+        <div class="app-header">
+            <a href="mobile-login.html" class="header-back">← Выход</a>
+            <h1>🔧 Админ-панель</h1>
+            <div class="header-avatar">⚙️</div>
+        </div>
+
+        <div class="phone-content">
+            <p style="font-size:0.78rem; color:#5a8a9a; margin-bottom:12px;">Всего заявок: 3</p>
+
+            <div class="chips-row">
+                <span class="chip selected">Все</span>
+                <span class="chip">Новые</span>
+                <span class="chip">В работе</span>
+                <span class="chip">Выполненные</span>
+                <span class="chip">Отменённые</span>
+            </div>
+
+            <div class="order-list">
+                <div class="order-item" style="border-left: 3px solid #2d7a94;">
+                    <div class="order-item-header">
+                        <span class="order-item-id">Заявка №1056</span>
+                        <span class="badge badge-new">Новая</span>
+                    </div>
+                    <div class="order-item-body">
+                        <strong>ФИО:</strong> Петров Пётр<br>
+                        <strong>Контакты:</strong> +7 (900) 111-22-33<br>
+                        <strong>Услуга:</strong> Химчистка мебели<br>
+                        <strong>Дата:</strong> 22.05.2024 | 14:30<br>
+                        <strong>Оплата:</strong> Банковская карта
+                    </div>
+                    <div class="order-item-footer" style="gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-primary btn-small">В работу</button>
+                        <button class="btn btn-danger btn-small" onclick="if(confirm('Укажите причину отмены')) alert('Заявка отменена')">Отменить</button>
+                    </div>
+                </div>
+
+         
+                <div class="order-item" style="border-left: 3px solid #c9a84c;">
+                    <div class="order-item-header">
+                        <span class="order-item-id">Заявка №1055</span>
+                        <span class="badge badge-inwork">В работе</span>
+                    </div>
+                    <div class="order-item-body">
+                        <strong>ФИО:</strong> Сидоров Алексей<br>
+                        <strong>Контакты:</strong> sidorov@mail.ru<br>
+                        <strong>Услуга:</strong> Общий клининг<br>
+                        <strong>Дата:</strong> 20.05.2024 | 09:00<br>
+                        <strong>Оплата:</strong> Наличные
+                    </div>
+                    <div class="order-item-footer" style="gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-primary btn-small">Выполнено</button>
+                        <button class="btn btn-danger btn-small" onclick="if(confirm('Укажите причину отмены')) alert('Заявка отменена')">Отменить</button>
+                    </div>
+                </div>
+
+        
+                <div class="order-item" style="border-left: 3px solid #5a9a6e;">
+                    <div class="order-item-header">
+                        <span class="order-item-id">Заявка №1042</span>
+                        <span class="badge badge-done">Выполнено</span>
+                    </div>
+                    <div class="order-item-body">
+                        <strong>ФИО:</strong> Иванов Иван<br>
+                        <strong>Контакты:</strong> +7 (900) 123-45-67<br>
+                        <strong>Услуга:</strong> Генеральная уборка<br>
+                        <strong>Дата:</strong> 15.05.2024 | 10:00<br>
+                        <strong>Оплата:</strong> Банковская карта
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="mobile-admin.html" class="nav-item active">
+                <span class="icon">📋</span>
+                <span>Заявки</span>
+            </a>
+            <a href="mobile-admin.html" class="nav-item">
+                <span class="icon">🔍</span>
+                <span>Поиск</span>
+            </a>
+            <a href="mobile-admin.html" class="nav-item">
+                <span class="icon">📊</span>
+                <span>Отчёты</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
