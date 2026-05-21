@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Регистрация — Мой Не Сам</title>
+    <link rel="stylesheet" href="mobile-style.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <span class="status-icons">📶 🔋</span>
+        </div>
+
+        <div class="app-header">
+            <span></span>
+            <h1>🌊 Мой Не Сам</h1>
+            <span></span>
+        </div>
+
+        <div class="phone-content">
+            <div class="card">
+                <h2>Регистрация</h2>
+                <form id="reg-form">
+                    <div class="form-group">
+                        <label>ФИО *</label>
+                        <input type="text" placeholder="Иванов Иван Иванович" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон *</label>
+                        <input type="tel" placeholder="+7 (900) 123-45-67" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" placeholder="example@mail.ru" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Логин *</label>
+                        <input type="text" placeholder="Придумайте логин" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль *</label>
+                        <input type="password" placeholder="Не менее 6 символов" required>
+                    </div>
+                    <p class="error-msg" style="display:none;">Все поля обязательны для заполнения</p>
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                </form>
+            </div>
+
+            <p style="text-align:center; margin-top:10px;">
+                <span style="color:#5a8a9a; font-size:0.82rem;">Уже есть аккаунт?</span>
+                <a href="mobile-login.html" class="text-link">Войти</a>
+            </p>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="mobile-register.html" class="nav-item active">
+                <span class="icon">📝</span>
+                <span>Регистрация</span>
+            </a>
+            <a href="mobile-login.html" class="nav-item">
+                <span class="icon">🔑</span>
+                <span>Вход</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
